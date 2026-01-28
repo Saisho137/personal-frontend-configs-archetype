@@ -1,6 +1,27 @@
 {
   "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
+    "source.organizeImports": "never",
     "source.fixAll.eslint": "explicit"
+  },
+  "editor.rulers": [
+    100
+  ],
+  "editor.bracketPairColorization.enabled": true,
+  "editor.linkedEditing": true,
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/out": true,
+    "**/coverage": true
+  },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[markdown]": {
+    "editor.wordWrap": "on"
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/coverage": true
   }
 }

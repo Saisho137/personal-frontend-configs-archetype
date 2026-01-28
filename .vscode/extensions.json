@@ -2,9 +2,17 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "deque-systems.vscode-axe-linter",
     "EditorConfig.EditorConfig",
     "usernamehw.errorlens",
-    "aaron-bond.better-comments"
+    "aaron-bond.better-comments",
+    "deque-systems.vscode-axe-linter",
+    "mikestead.dotenv",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-spanish",
+    "github.copilot",
+    "eamodio.gitlens",
+    "pflannery.vscode-versionlens",
+    "YoavBls.pretty-ts-errors",
+    "christian-kohler.path-intellisense"
   ]
 }

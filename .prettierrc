@@ -1,5 +1,4 @@
 {
-  "embeddedLanguageFormatting": "auto",
   "trailingComma": "none",
   "jsxSingleQuote": true,
   "singleQuote": true,
@@ -7,9 +6,13 @@
   "printWidth": 100,
   "semi": true,
   "tabWidth": 2,
+  "useTabs": false,
   "arrowParens": "always",
   "bracketSpacing": true,
   "bracketSameLine": false,
-  "quoteProps": "as-needed",
-  "singleAttributePerLine": false
+  "proseWrap": "always",
+  "overrides": [
+    { "files": "*.md", "options": { "proseWrap": "preserve" } },
+    { "files": ["*.yml", "*.yaml"], "options": { "singleQuote": false } }
+  ]
 }
