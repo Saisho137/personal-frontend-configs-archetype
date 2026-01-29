@@ -1,0 +1,45 @@
+{
+  "name": "frontend-archetype",
+  "version": "1.0.0",
+  "description": "Arquetipo de configuraciones para proyectos frontend modernos",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.3.0",
+    "pnpm": ">=9.15.0"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "validate": "pnpm lint && pnpm format:check && pnpm type-check"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.17.0",
+    "@types/node": "^22.10.2",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "eslint": "^9.17.0",
+    "eslint-plugin-import": "^2.31.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.11",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write"
+    ],
+    "*.{json,md,css,scss,yaml,yml}": [
+      "prettier --write"
+    ]
+  },
+  "author": "santib.2001@hotmail.com",
+  "license": "MIT"
+}
