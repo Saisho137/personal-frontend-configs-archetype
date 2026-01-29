@@ -16,7 +16,6 @@ coverage/
 .idea/
 *.swp
 .DS_Store
-.cspell.json
 
 # Logs y cache
 *.log
