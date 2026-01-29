@@ -16,7 +16,7 @@ const config = [
   ...compat.extends('plugin:@typescript-eslint/recommended'),
   {
     name: 'global-ignores',
-    ignores: ['**/node_modules/**', '**/.next/**', '**/out/**', '**/dist/**', '**/coverage/**']
+    ignores: ['**/node_modules/**', '**/out/**', '**/dist/**', '**/build/**', '**/coverage/**']
   },
   {
     name: 'custom-rules',

@@ -13,7 +13,9 @@
   "files.exclude": {
     "**/node_modules": true,
     "**/out": true,
-    "**/coverage": true
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.updateImportsOnFileMove.enabled": "always",
@@ -22,6 +24,8 @@
   },
   "search.exclude": {
     "**/node_modules": true,
-    "**/coverage": true
+    "**/coverage": true,
+    "**/dist": true,
+    "**/build": true
   }
 }
