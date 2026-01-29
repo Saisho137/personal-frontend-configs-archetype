@@ -16,7 +16,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "type-check": "tsc --noEmit",
-    "validate": "pnpm lint && pnpm format:check && pnpm type-check"
+    "audit:check": "pnpm audit --audit-level=high",
+    "audit:fix": "pnpm audit --fix",
+    "security": "pnpm audit && pnpm outdated",
+    "validate": "pnpm lint && pnpm format:check && pnpm type-check && pnpm security",
+    "fix": "pnpm lint:fix && pnpm format && pnpm audit:fix",
+    "prepush": "pnpm lint && pnpm format:check && pnpm type-check && pnpm audit:check"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -38,6 +43,9 @@
     ],
     "*.{json,md,css,scss,yaml,yml}": [
       "prettier --write"
+    ],
+    "{package.json,pnpm-lock.yaml}": [
+      "pnpm audit --audit-level=high"
     ]
   },
   "author": "santib.2001@hotmail.com",

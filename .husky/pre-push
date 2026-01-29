@@ -1,0 +1,18 @@
+# ============================================================================
+# PRE-PUSH HOOK
+# ============================================================================
+# Este hook ejecuta validaciones antes de permitir un push al repositorio.
+#
+# En un proyecto real, este hook debería incluir también:
+#   - pnpm build        → Verificar que el proyecto compila correctamente
+#   - pnpm test         → Ejecutar suite de tests (unit, integration)
+#   - pnpm test:e2e     → Tests end-to-end (opcional, puede ser muy lento)
+#
+# Ejemplo de script prepush completo para producción:
+#   "prepush": "pnpm lint && pnpm format:check && pnpm type-check && pnpm build && pnpm test && pnpm audit:check"
+#
+# NOTA: Este archetype no incluye build ni test porque es solo una base de
+# configuración. Agrégalos cuando implementes tu aplicación.
+# ============================================================================
+
+pnpm prepush

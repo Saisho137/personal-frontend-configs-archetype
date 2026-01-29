@@ -8,13 +8,6 @@
   "editor.rulers": [100],
   "editor.bracketPairColorization.enabled": true,
   "editor.linkedEditing": true,
-  "files.exclude": {
-    "**/node_modules": true,
-    "**/out": true,
-    "**/coverage": true,
-    "**/dist": true,
-    "**/build": true
-  },
   "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "[markdown]": {
