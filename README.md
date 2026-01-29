@@ -54,10 +54,11 @@ Cuando inicias un nuevo proyecto frontend, en lugar de configurar manualmente:
 | **Prettier**               | Formateo automático de código consistente                     |
 | **Husky**                  | Git hooks para validaciones automáticas                       |
 | **lint-staged**            | Ejecuta linters solo en archivos modificados                  |
+| **commitlint**             | Validación robusta de conventional commits                    |
+| **Knip**                   | Detecta código y dependencias no utilizadas                   |
 | **EditorConfig**           | Configuración consistente entre editores                      |
 | **CSpell**                 | Verificación ortográfica en código                            |
-| **Auditoría de seguridad** | Detección de vulnerabilidades en dependencias                 |
-| **Validación de commits**  | Enforce de conventional commits                               |
+| **Auditoría de seguridad** | Detección de vulnerabilidades (pnpm audit + NPQ)              |
 
 ---
 
@@ -139,7 +140,7 @@ Ejecuta `lint-staged` para validar archivos modificados antes de hacer commit.
 
 #### `commit-msg`
 
-Valida que el mensaje de commit siga el formato **Conventional Commits**:
+Ejecuta `commitlint` para validar que el mensaje de commit siga el formato **Conventional Commits**:
 
 ```
 tipo(scope): descripción
@@ -160,7 +161,29 @@ Ejecuta validaciones completas antes de hacer push:
 
 ---
 
-### 5. **lint-staged** (`package.json`)
+### 5. **commitlint** (`commitlint.config.js`)
+
+**Propósito**: Validación robusta de mensajes de commit siguiendo Conventional Commits.
+
+**Configuración clave**:
+
+- Extiende `@commitlint/config-conventional`
+- Tipos permitidos: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+- Máximo 100 caracteres en el header
+- Subject no puede estar vacío
+- Type en minúsculas obligatorio
+
+**Integración**: Se ejecuta automáticamente en el hook `commit-msg` de Husky.
+
+**Uso manual**:
+
+```bash
+echo "feat: mi mensaje" | pnpm commitlint  # Validar mensaje
+```
+
+---
+
+### 6. **lint-staged** (`package.json`)
 
 **Propósito**: Ejecutar linters solo en archivos modificados (más rápido).
 
@@ -176,7 +199,28 @@ Ejecuta validaciones completas antes de hacer push:
 
 ---
 
-### 6. **EditorConfig** (`.editorconfig`)
+### 7. **Knip** (`knip.config.js`)
+
+**Propósito**: Detectar código no utilizado y dependencias innecesarias.
+
+**Características**:
+
+- Encuentra archivos no importados
+- Detecta exports no utilizados
+- Identifica dependencias innecesarias
+- Reduce bundle size y mejora mantenibilidad
+
+**Uso**: Script utilitario aislado (no integrado en el flujo de desarrollo)
+
+```bash
+pnpm knip  # Analizar proyecto
+```
+
+**Nota**: Ejecutar periódicamente para mantener el proyecto limpio.
+
+---
+
+### 8. **EditorConfig** (`.editorconfig`)
 
 **Propósito**: Configuración consistente entre diferentes editores (VS Code, WebStorm, etc.).
 
@@ -191,21 +235,21 @@ Ejecuta validaciones completas antes de hacer push:
 
 ---
 
-### 7. **CSpell** (`.cspell.json`)
+### 9. **CSpell** (`.cspell.json`)
 
 **Propósito**: Verificación ortográfica en código (detecta typos).
 
 **Configuración**:
 
 - Idiomas: Inglés y Español
-- Palabras personalizadas: `archetype`, `pnpm`, `husky`, etc.
+- Palabras personalizadas: `archetype`, `pnpm`, `husky`, `commitlint`, `knip`, `npq`, etc.
 - Ignora: `node_modules`, `.next`, `dist`, `pnpm-lock.yaml`
 
 **Uso**: Integrado en VS Code (extensión CSpell)
 
 ---
 
-### 8. **Node Version Manager** (`.nvmrc`)
+### 10. **Node Version Manager** (`.nvmrc`)
 
 **Propósito**: Especificar la versión de Node.js requerida.
 
@@ -215,7 +259,7 @@ Ejecuta validaciones completas antes de hacer push:
 
 ---
 
-### 9. **NPM/PNPM Config** (`.npmrc`)
+### 11. **NPM/PNPM Config** (`.npmrc`)
 
 **Propósito**: Configuración del gestor de paquetes.
 
@@ -229,7 +273,7 @@ Ejecuta validaciones completas antes de hacer push:
 
 ---
 
-### 10. **Package Manager** (`package.json`)
+### 12. **Package Manager** (`package.json`)
 
 **Propósito**: Gestión de dependencias y scripts.
 
@@ -250,11 +294,34 @@ pnpm format:check  # Verificar formateo
 pnpm type-check    # Verificar tipos TypeScript
 pnpm audit:check   # Verificar vulnerabilidades
 pnpm audit:fix     # Corregir vulnerabilidades
+pnpm audit:npq     # Auditoría avanzada con NPQ
 pnpm security      # Auditoría completa
 pnpm validate      # Ejecutar todas las validaciones
 pnpm fix           # Corregir todo automáticamente
 pnpm prepush       # Validaciones antes de push
+pnpm knip          # Detectar código no utilizado
 ```
+
+---
+
+### 13. **NPQ** (Script utilitario)
+
+**Propósito**: Auditoría avanzada de dependencias con análisis de riesgos.
+
+**Características**:
+
+- Análisis más profundo que `pnpm audit`
+- Detección de paquetes abandonados
+- Análisis de licencias
+- Recomendaciones de alternativas
+
+**Uso**: Script utilitario aislado
+
+```bash
+pnpm audit:npq  # Ejecutar auditoría NPQ
+```
+
+**Nota**: Puede ser lento y depende de servicios externos. Ejecutar periódicamente.
 
 ---
 
@@ -458,23 +525,7 @@ Estas herramientas **NO están incluidas** en este archetype porque se recomiend
 
 ---
 
-### 3. **NPQ (Node Package Query)** 📦
-
-**Propósito**: Auditoría avanzada de dependencias con análisis de riesgos.
-
-**Por qué no está aquí**: Complementa `pnpm audit` pero requiere configuración adicional.
-
-**Recomendación**: Ejecutar en CI
-
-```bash
-npx npq audit
-```
-
-**Referencia**: https://npq.sh/
-
----
-
-### 4. **Lighthouse CI** 🚀
+### 3. **Lighthouse CI** 🚀
 
 **Propósito**: Auditoría de performance, accesibilidad, SEO.
 
@@ -491,7 +542,7 @@ lhci autorun
 
 ---
 
-### 5. **Dependabot / Renovate** 🤖
+### 4. **Dependabot / Renovate** 🤖
 
 **Propósito**: Actualización automática de dependencias.
 
@@ -503,51 +554,6 @@ lhci autorun
 - GitLab: Settings → Integrations → Renovate
 
 **Referencia**: https://www.whitesourcesoftware.com/free-developer-tools/renovate/
-
----
-
-## Herramientas Que SÍ Podrían Estar Integradas
-
-Estas herramientas son **agnósticas de framework** y podrían considerarse para agregar:
-
-### ✅ **commitlint** (Recomendado)
-
-**Propósito**: Validación más robusta de conventional commits.
-
-**Ventaja**: Más flexible que el hook actual, mejor mensajes de error.
-
-**Cómo agregar**:
-
-```bash
-pnpm add -D commitlint @commitlint/config-conventional
-```
-
-```javascript
-// commitlint.config.js
-export default {
-  extends: ['@commitlint/config-conventional'],
-  rules: {
-    'type-enum': [
-      2,
-      'always',
-      ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert']
-    ]
-  }
-};
-```
-
-### ✅ **Knip** (Recomendado)
-
-**Propósito**: Detectar código no utilizado y dependencias innecesarias.
-
-**Ventaja**: Mantiene el proyecto limpio, reduce bundle size.
-
-**Cómo agregar**:
-
-```bash
-pnpm add -D knip
-pnpm knip
-```
 
 ---
 
